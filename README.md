@@ -149,7 +149,7 @@ and rank of custom names.
 ## How to cite
 
 Stefan Müller (2020). *iebabynames: Full baby name data for the Republic
-of Ireland *. R package version 0.1.1. URL:
+of Ireland*. R package version 0.1.1. URL:
 <http://github.com/stefan-mueller/iebabynames>.
 
 For a BibTeX entry, use the output from `citation(package =

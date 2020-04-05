@@ -133,7 +133,7 @@ The [website of the Central Statistics Office](https://www.cso.ie/en/interactive
 
 ## How to cite
 
-Stefan Müller (2020). _iebabynames: Full baby name data for the Republic of Ireland _. R package version 0.1.1. URL: http://github.com/stefan-mueller/iebabynames.
+Stefan Müller (2020). _iebabynames: Full baby name data for the Republic of Ireland_. R package version 0.1.1. URL: http://github.com/stefan-mueller/iebabynames.
 
 For a BibTeX entry, use the output from `citation(package = "iebabynames")`.
 
