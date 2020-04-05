@@ -107,7 +107,7 @@ ggplot(data = iebabynames_variants1,
     scale_x_continuous(breaks = c(seq(1970, 2020, 20))) +
     geom_point(alpha = 0.4) +
     facet_wrap(~name, nrow = 1) +
-    labs(x = NULL, y = "Frequency per year") +
+    labs(x = NULL, y = "Frequency") +
     theme_bw()
 ```
 
@@ -124,7 +124,7 @@ ggplot(data = iebabynames_variants2,
     scale_x_continuous(breaks = c(seq(1970, 2020, 20))) +
     geom_point(alpha = 0.4) +
     facet_wrap(~name, nrow = 1) +
-    labs(x = NULL, y = "Frequency per year") +
+    labs(x = NULL, y = "Frequency") +
     theme_bw()
 ```
 
