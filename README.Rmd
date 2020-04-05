@@ -137,6 +137,8 @@ Stefan Müller (2020). _iebabynames: Full baby name data for the Republic of Ire
 
 For a BibTeX entry, use the output from `citation(package = "iebabynames")`.
 
+If you use the data, please also cite the CSO website: https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/.
+
 ## Issues
 
 Please file an issue (with a bug, wish list, etc.) [via GitHub](https://github.com/stefan-mueller/iebabynames/issues).

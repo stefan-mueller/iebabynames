@@ -26,5 +26,7 @@ Full baby name data (1964--2019) for the Republic of Ireland from the Central St
 }
 \details{
 The data are released by the Central Statistics Office.
+
+If you use the data, please also cite the CSO website: \url{https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/}
 }
 \keyword{data}

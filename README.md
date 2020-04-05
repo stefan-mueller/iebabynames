@@ -155,6 +155,9 @@ of Ireland *. R package version 0.1.1. URL:
 For a BibTeX entry, use the output from `citation(package =
 "iebabynames")`.
 
+If you use the data, please also cite the CSO website:
+<https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/>.
+
 ## Issues
 
 Please file an issue (with a bug, wish list, etc.) [via

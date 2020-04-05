@@ -14,6 +14,7 @@
 #' @details
 #' The data are released by the Central Statistics Office.
 #'
+#' If you use the data, please also cite the CSO website: \url{https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/}
 #' @source
 #' Central Statistics Office. 2020 \href{https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/}{Baby Names of Ireland}.
 #' @keywords data
