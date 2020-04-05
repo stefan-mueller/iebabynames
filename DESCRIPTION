@@ -1,0 +1,13 @@
+Package: iebabynames
+Title: Full baby name data for the Republic of Ireland 
+Version: 0.1.1
+Authors@R: c(
+    person("Müller", "Stefan", email = "stefan.mueller@ucd.ie", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6315-4125")))
+Description: Full listing of baby names in the Republic of Ireland
+    occurring more than three times per year between 1964 and 2019
+License: CC0
+URL: http://github.com/stefan-mueller/iebabynames
+BugReports: https://github.com/stefan-mueller/iebabynames/issues
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.0
