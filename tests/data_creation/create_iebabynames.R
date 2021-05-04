@@ -1,7 +1,9 @@
 library(readtext)
-library(tidyverse)
+library(stringr)
+library(dplyr)
+library(usethis)
 
-dat <- readtext("/Users/stefan/Desktop/names_ireland/*")
+dat <- readtext("/Users/smueller/Dropbox/datasets/babynames_ireland/*")
 
 iebabynames <- dat %>%
     mutate(sex = ifelse(str_detect(doc_id, "Boys"), "Male",
@@ -17,7 +19,8 @@ iebabynames <- dat %>%
     arrange(sex, -year, rank) %>%
     group_by(year) %>%
     mutate(prop = n / sum(n)) %>%
-    ungroup()
+    ungroup() %>%
+    as.data.frame()
 
 
 usethis::use_data(iebabynames, overwrite = TRUE)
