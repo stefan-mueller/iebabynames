@@ -11,12 +11,12 @@ knitr::opts_chunk$set(
 )
 ```
 
-# iebabynames: Full baby name data for the Republic of Ireland 
+# iebabynames: Full baby name data for Ireland
 
 
 ## Description
 
-Full baby name data (1964–2020) for the Republic of Ireland, gathered from the [Central Statistics Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
+Full baby name data (1964–2020) for Ireland, gathered from the [Central Statistics Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
 
 The package contains the dataset `iebabynames` with 72,585 observations on six variables: `year`, `sex`, `name`, `n`, `rank`, and `prop`. Due to confidentiality reasons, only names with 3 or more instances in the relevant year are included.
 
@@ -136,7 +136,7 @@ The [website of the Central Statistics Office](https://www.cso.ie/en/interactive
 
 ## How to cite
 
-Stefan Müller (2021). _iebabynames: Full baby name data for the Republic of Ireland_. R package version 0.2.1. URL: http://github.com/stefan-mueller/iebabynames.
+Stefan Müller (2021). _iebabynames: Ireland Baby Names, 1964-2020_. R package version 0.2.1. URL: http://github.com/stefan-mueller/iebabynames.
 
 For a BibTeX entry, use the output from `citation(package = "iebabynames")`.
 

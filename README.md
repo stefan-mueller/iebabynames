@@ -1,10 +1,10 @@
 
-# iebabynames: Full baby name data for the Republic of Ireland
+# iebabynames: Full baby name data for Ireland
 
 ## Description
 
-Full baby name data (1964–2020) for the Republic of Ireland, gathered
-from the [Central Statistics
+Full baby name data (1964–2020) for Ireland, gathered from the [Central
+Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
 
 The package contains the dataset `iebabynames` with 72,585 observations
@@ -150,8 +150,8 @@ and rank of custom names.
 
 ## How to cite
 
-Stefan Müller (2021). *iebabynames: Full baby name data for the Republic
-of Ireland*. R package version 0.2.1. URL:
+Stefan Müller (2021). *iebabynames: Ireland Baby Names, 1964-2020*. R
+package version 0.2.1. URL:
 <http://github.com/stefan-mueller/iebabynames>.
 
 For a BibTeX entry, use the output from
