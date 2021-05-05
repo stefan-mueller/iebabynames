@@ -38,7 +38,7 @@ devtools::install_github("stefan-mueller/iebabynames")
 
 ## Demonstration
 
-```{r,message=FALSE}
+```{r, message=FALSE}
 # load packages
 library(iebabynames)
 library(dplyr)
@@ -47,6 +47,16 @@ library(ggplot2)
 head(iebabynames)
 ```
 
+### Get most popular names in 2020
+
+```{r}
+dat_top_2020 <- iebabynames %>% 
+    filter(year == "2020") %>% 
+    group_by(sex) %>% 
+    top_n(n = 3, wt = -rank) # get top-3
+
+dat_top_2020
+```
 
 ### Inspecting the development of selected names
 

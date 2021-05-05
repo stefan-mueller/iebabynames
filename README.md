@@ -53,6 +53,27 @@ head(iebabynames)
 ## 6 2020 Female Amelia 275    6 0.005643920
 ```
 
+### Get most popular names in 2020
+
+``` r
+dat_top_2020 <- iebabynames %>% 
+    filter(year == "2020") %>% 
+    group_by(sex) %>% 
+    top_n(n = 3, wt = -rank) # get top-3
+
+dat_top_2020
+## # A tibble: 6 x 6
+## # Groups:   sex [2]
+##    year sex    name      n  rank    prop
+##   <dbl> <chr>  <chr> <int> <dbl>   <dbl>
+## 1  2020 Female Grace   410     1 0.00841
+## 2  2020 Female Fiadh   366     2 0.00751
+## 3  2020 Female Emily   329     3 0.00675
+## 4  2020 Male   Jack    597     1 0.0123 
+## 5  2020 Male   James   495     2 0.0102 
+## 6  2020 Male   Noah    447     3 0.00917
+```
+
 ### Inspecting the development of selected names
 
 ``` r
@@ -77,7 +98,7 @@ ggplot(data = iebabynames_subset,
           legend.position = "bottom")
 ```
 
-![](man/images/unnamed-chunk-4-1.png)<!-- -->
+![](man/images/unnamed-chunk-5-1.png)<!-- -->
 
 ### Plotting the 10 most frequent male and female names across the entire period
 
@@ -104,7 +125,7 @@ ggplot(iebabynames_top, aes(x = reorder(name, n_total),
         legend.position = "bottom") 
 ```
 
-![](man/images/unnamed-chunk-5-1.png)<!-- -->
+![](man/images/unnamed-chunk-6-1.png)<!-- -->
 
 ### Exploring different variants of names
 
@@ -123,7 +144,7 @@ ggplot(data = iebabynames_variants1,
   theme_bw()
 ```
 
-![](man/images/unnamed-chunk-6-1.png)<!-- -->
+![](man/images/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
 iebabynames_variants2 <- iebabynames %>% 
@@ -141,7 +162,7 @@ ggplot(data = iebabynames_variants2,
   theme_bw()
 ```
 
-![](man/images/unnamed-chunk-7-1.png)<!-- -->
+![](man/images/unnamed-chunk-8-1.png)<!-- -->
 
 The [website of the Central Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/)
