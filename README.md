@@ -97,7 +97,7 @@ ggplot(iebabynames_top, aes(x = reorder(name, n_total),
   scale_fill_manual(values = c("darkgreen", "grey50")) +
   coord_flip() +
   theme_bw() +
-  labs(x = NULL, y = "Overall frequency (1964-2020)") +
+  labs(x = NULL, y = "Frequency (1964-2020)") +
   theme(axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
         legend.title = element_blank(),
