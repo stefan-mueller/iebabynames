@@ -128,7 +128,7 @@ ggplot(data = iebabynames_variants1,
 ``` r
 iebabynames_variants2 <- iebabynames %>% 
   filter(name %in% c("Eoin", "Eoghan", "Ewan",
-                     "Evan", "Owen"))
+                     "Owen"))
 
 
 ggplot(data = iebabynames_variants2,
