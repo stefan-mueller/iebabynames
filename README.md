@@ -3,11 +3,11 @@
 
 ## Description
 
-Full baby name data (1964–2020) for Ireland, gathered from the [Central
+Full baby name data (1964–2021) for Ireland, gathered from the [Central
 Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
 
-The package contains the dataset `iebabynames` with 72,585 observations
+The package contains the dataset `iebabynames` with 74661 observations
 on six variables: `year`, `sex`, `name`, `n`, `rank`, and `prop`. Due to
 confidentiality reasons, only names with 3 or more instances in the
 relevant year are included.
@@ -30,7 +30,7 @@ the latest development version:
 
 ``` r
 if (!require("devtools")) {
-    install.packages("devtools")
+  install.packages("devtools")
 }
 devtools::install_github("stefan-mueller/iebabynames") 
 ```
@@ -42,63 +42,99 @@ devtools::install_github("stefan-mueller/iebabynames")
 library(iebabynames)
 library(dplyr)
 library(ggplot2)
+library(scales)
 
 head(iebabynames)
 ##   year    sex   name   n rank        prop
-## 1 2020 Female  Grace 410    1 0.008414572
-## 2 2020 Female  Fiadh 366    2 0.007511544
-## 3 2020 Female  Emily 329    3 0.006752181
-## 4 2020 Female Sophie 328    4 0.006731657
-## 5 2020 Female    Ava 297    5 0.006095434
-## 6 2020 Female Amelia 275    6 0.005643920
+## 1 2021 Female  Fiadh 424    1 0.008322211
+## 2 2021 Female  Grace 412    2 0.008086677
+## 3 2021 Female  Emily 388    3 0.007615608
+## 4 2021 Female Sophie 336    4 0.006594960
+## 5 2021 Female  Éabha 288    5 0.005652822
+## 6 2021 Female   Lucy 287    6 0.005633195
 ```
 
-### Get most popular names in 2020
+### Get most popular names in 2021
 
 ``` r
-dat_top_2020 <- iebabynames %>% 
-    filter(year == "2020") %>% 
-    group_by(sex) %>% 
-    top_n(n = 3, wt = -rank) # get top-3
+dat_top_2021 <- iebabynames %>% 
+  filter(year == "2021") %>% 
+  group_by(sex) %>% 
+  top_n(n = 10, wt = -rank) # get top 10
 
-dat_top_2020
-## # A tibble: 6 x 6
+dat_top_2021
+## # A tibble: 20 × 6
 ## # Groups:   sex [2]
-##    year sex    name      n  rank    prop
-##   <dbl> <chr>  <chr> <int> <dbl>   <dbl>
-## 1  2020 Female Grace   410     1 0.00841
-## 2  2020 Female Fiadh   366     2 0.00751
-## 3  2020 Female Emily   329     3 0.00675
-## 4  2020 Male   Jack    597     1 0.0123 
-## 5  2020 Male   James   495     2 0.0102 
-## 6  2020 Male   Noah    447     3 0.00917
+##     year sex    name        n  rank    prop
+##    <dbl> <chr>  <chr>   <int> <dbl>   <dbl>
+##  1  2021 Female Fiadh     424     1 0.00832
+##  2  2021 Female Grace     412     2 0.00809
+##  3  2021 Female Emily     388     3 0.00762
+##  4  2021 Female Sophie    336     4 0.00659
+##  5  2021 Female Éabha     288     5 0.00565
+##  6  2021 Female Lucy      287     6 0.00563
+##  7  2021 Female Mia       279     7 0.00548
+##  8  2021 Female Ava       272     8 0.00534
+##  9  2021 Female Lily      271     9 0.00532
+## 10  2021 Female Ella      268    10 0.00526
+## 11  2021 Male   Jack      667     1 0.0131 
+## 12  2021 Male   Noah      475     2 0.00932
+## 13  2021 Male   James     442     3 0.00868
+## 14  2021 Male   Conor     360     4 0.00707
+## 15  2021 Male   Rían      357     5 0.00701
+## 16  2021 Male   Liam      353     6 0.00693
+## 17  2021 Male   Charlie   345     7 0.00677
+## 18  2021 Male   Daniel    325     8 0.00638
+## 19  2021 Male   Cillian   322     9 0.00632
+## 20  2021 Male   Tadhg     318    10 0.00624
 ```
+
+### Inspecting how the most popular names in 2021 have developed over time
+
+``` r
+# combine name and sex for correct subsetting
+dat_top_2021 <- dat_top_2021 %>% 
+  mutate(name_sex = paste(name, sex, sep = "_"))  
+
+# extract all years for the most frequent names in 2021
+dat_top_timeseries <- iebabynames %>% 
+  mutate(name_sex = paste(name, sex, sep = "_")) %>% 
+  filter(name_sex %in% dat_top_2021$name_sex)
+
+library(ggridges)
+
+ggplot(data = dat_top_timeseries,
+       aes(x = year, y = prop, colour = sex)) +
+  scale_colour_manual(values = c("darkgreen", "grey50")) +
+  scale_x_continuous(breaks = c(seq(1961, 2021, 10))) +
+  scale_y_continuous(labels = scales::percent) +
+  geom_point(alpha = 0.4) +
+  facet_wrap(~name) +
+  labs(x = NULL, y = "Percentage of Babies") +
+  theme_bw() +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 90, hjust = 0.5),
+        legend.position = "bottom")
+```
+
+![](man/images/unnamed-chunk-6-1.png)<!-- -->
 
 ### Inspecting the development of selected names
 
 ``` r
-# select names
-iebabynames_subset <- iebabynames %>% 
-    filter(name %in% c("Aisling", "Grace", "Mary",
-                       "Emily", "Sophie", "Saoirse", "Paul",
-                       "John", "Jack", "Patrick", "Noah",
-                       "Conor"))
-
-
-ggplot(data = iebabynames_subset,
-       aes(x = year, y = n, colour = sex)) +
-    scale_colour_manual(values = c("darkgreen", "grey50")) +
-    geom_smooth(se = FALSE) +
-    scale_x_continuous(breaks = c(seq(1965, 2020, 10))) +
-    geom_point(alpha = 0.4) +
-    facet_wrap(~name) +
-    labs(x = NULL, y = "Frequency") +
-    theme_bw() +
-    theme(legend.title = element_blank(),
-          legend.position = "bottom")
+ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
+       aes(x = year, y = prop)) +
+  geom_smooth(se = FALSE) +
+  scale_x_continuous(breaks = c(seq(1961, 2021, 5))) +
+  scale_y_continuous(labels = scales::percent,
+                     breaks = c(seq(0, 0.06, 0.01))) +
+  geom_point(alpha = 0.4) +
+  facet_wrap(~name) +
+  labs(x = NULL, y = "Percentage of Babies") +
+  theme_bw()
 ```
 
-![](man/images/unnamed-chunk-5-1.png)<!-- -->
+![](man/images/unnamed-chunk-7-1.png)<!-- -->
 
 ### Plotting the 10 most frequent male and female names across the entire period
 
@@ -118,14 +154,14 @@ ggplot(iebabynames_top, aes(x = reorder(name, n_total),
   scale_fill_manual(values = c("darkgreen", "grey50")) +
   coord_flip() +
   theme_bw() +
-  labs(x = NULL, y = "Frequency (1964-2020)") +
+  labs(x = NULL, y = "Frequency (1964-2021)") +
   theme(axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
         legend.title = element_blank(),
         legend.position = "bottom") 
 ```
 
-![](man/images/unnamed-chunk-6-1.png)<!-- -->
+![](man/images/unnamed-chunk-8-1.png)<!-- -->
 
 ### Exploring different variants of names
 
@@ -137,14 +173,14 @@ iebabynames_variants1 <- iebabynames %>%
 ggplot(data = iebabynames_variants1,
        aes(x = year, y = n)) +
   geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1970, 2020, 20))) +
+  scale_x_continuous(breaks = c(seq(1970, 2021, 20))) +
   geom_point(alpha = 0.4) +
   facet_wrap(~name, nrow = 1) +
   labs(x = NULL, y = "Frequency") +
   theme_bw()
 ```
 
-![](man/images/unnamed-chunk-7-1.png)<!-- -->
+![](man/images/unnamed-chunk-9-1.png)<!-- -->
 
 ``` r
 iebabynames_variants2 <- iebabynames %>% 
@@ -155,14 +191,14 @@ iebabynames_variants2 <- iebabynames %>%
 ggplot(data = iebabynames_variants2,
        aes(x = year, y = n)) +
   geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1970, 2020, 20))) +
+  scale_x_continuous(breaks = c(seq(1970, 2021, 20))) +
   geom_point(alpha = 0.4) +
   facet_wrap(~name, nrow = 1) +
   labs(x = NULL, y = "Frequency") +
   theme_bw()
 ```
 
-![](man/images/unnamed-chunk-8-1.png)<!-- -->
+![](man/images/unnamed-chunk-10-1.png)<!-- -->
 
 The [website of the Central Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/)
@@ -171,12 +207,9 @@ and rank of custom names.
 
 ## How to cite
 
-Stefan Müller (2021). *iebabynames: Ireland Baby Names, 1964-2020*. R
-package version 0.2.1. URL:
+Stefan Müller (2022). *iebabynames: Ireland Baby Names, 1964-2021*. R
+package version 0.2.2. URL:
 <http://github.com/stefan-mueller/iebabynames>.
-
-For a BibTeX entry, use the output from
-`citation(package = "iebabynames")`.
 
 If you use the data, please also cite the CSO website:
 <https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/>.
