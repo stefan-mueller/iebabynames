@@ -9,7 +9,8 @@
 #'     \item{name}{A name}
 #'     \item{n}{Count of name within year and sex}
 #'     \item{rank}{Rank of name within year and sex}
-#'     \item{prop}{Proportion of name within year and sex}
+#'     \item{prop}{Proportion of name within year},
+#'     \item{prop_sex}{Proportion of name within year and sex}
 #'   }
 #' @details
 #' The data are released by the Central Statistics Office.

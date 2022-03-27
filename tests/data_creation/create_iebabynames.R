@@ -19,6 +19,8 @@ iebabynames <- dat %>%
     arrange(sex, -year, rank) %>%
     group_by(year) %>%
     mutate(prop = n / sum(n)) %>%
+    group_by(year, sex) %>%
+    mutate(prop_sex = n / sum(n)) %>%
     ungroup() %>%
     as.data.frame()
 

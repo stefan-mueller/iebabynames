@@ -8,9 +8,9 @@ Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
 
 The package contains the dataset `iebabynames` with 74661 observations
-on six variables: `year`, `sex`, `name`, `n`, `rank`, and `prop`. Due to
-confidentiality reasons, only names with 3 or more instances in the
-relevant year are included.
+on six variables: `year`, `sex`, `name`, `n`, `rank`, and `prop`, and
+`prop_sex`. Due to confidentiality reasons, only names with 3 or more
+instances in the relevant year are included.
 
 The package can be used to explore patterns of baby names in Ireland
 over time. The dataset `iebabynames` is also very suitable for
