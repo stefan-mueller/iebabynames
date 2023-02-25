@@ -75,12 +75,10 @@ dat_top_timeseries <- iebabynames %>%
   mutate(name_sex = paste(name, sex, sep = "_")) %>% 
   filter(name_sex %in% dat_top_2022$name_sex)
 
-library(ggridges)
-
 ggplot(data = dat_top_timeseries,
        aes(x = year, y = prop, colour = sex)) +
   scale_colour_manual(values = c("darkgreen", "grey50")) +
-  scale_x_continuous(breaks = c(seq(1961, 2022, 10))) +
+  scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
   scale_y_continuous(labels = scales::percent) +
   geom_point(alpha = 0.4) +
   facet_wrap(~name) +
@@ -98,7 +96,7 @@ ggplot(data = dat_top_timeseries,
 ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
        aes(x = year, y = prop)) +
   geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1961, 2021, 5))) +
+  scale_x_continuous(breaks = c(seq(1962, 2022, 5))) +
   scale_y_continuous(labels = scales::percent,
                      breaks = c(seq(0, 0.06, 0.01))) +
   geom_point(alpha = 0.4) +

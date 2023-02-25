@@ -77,16 +77,16 @@ dat_top_2022
 ##  8  2022 Female Mia       262     8 0.00528   0.0110
 ##  9  2022 Female Ellie     259     9 0.00522   0.0109
 ## 10  2022 Female Olivia    258    10 0.00520   0.0109
-## 11  2022 Male   Jack      641  1152 0.0129    0.0248
-## 12  2022 Male   Noah      485  1153 0.00977   0.0187
-## 13  2022 Male   James     412  1154 0.00830   0.0159
-## 14  2022 Male   Rían      372  1155 0.00749   0.0144
-## 15  2022 Male   Charlie   348  1156 0.00701   0.0134
-## 16  2022 Male   Oisín     340  1157 0.00685   0.0131
-## 17  2022 Male   Tadhg     324  1158 0.00653   0.0125
-## 18  2022 Male   Liam      323  1159 0.00651   0.0125
-## 19  2022 Male   Cillian   316  1160 0.00636   0.0122
-## 20  2022 Male   Daniel    303  1161 0.00610   0.0117
+## 11  2022 Male   Jack      641     1 0.0129    0.0248
+## 12  2022 Male   Noah      485     2 0.00977   0.0187
+## 13  2022 Male   James     412     3 0.00830   0.0159
+## 14  2022 Male   Rían      372     4 0.00749   0.0144
+## 15  2022 Male   Charlie   348     5 0.00701   0.0134
+## 16  2022 Male   Oisín     340     6 0.00685   0.0131
+## 17  2022 Male   Tadhg     324     7 0.00653   0.0125
+## 18  2022 Male   Liam      323     8 0.00651   0.0125
+## 19  2022 Male   Cillian   316     9 0.00636   0.0122
+## 20  2022 Male   Daniel    303    10 0.00610   0.0117
 ```
 
 ### Inspecting how the most popular names in 2022 have developed over time
@@ -101,12 +101,10 @@ dat_top_timeseries <- iebabynames %>%
   mutate(name_sex = paste(name, sex, sep = "_")) %>% 
   filter(name_sex %in% dat_top_2022$name_sex)
 
-library(ggridges)
-
 ggplot(data = dat_top_timeseries,
        aes(x = year, y = prop, colour = sex)) +
   scale_colour_manual(values = c("darkgreen", "grey50")) +
-  scale_x_continuous(breaks = c(seq(1961, 2022, 10))) +
+  scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
   scale_y_continuous(labels = scales::percent) +
   geom_point(alpha = 0.4) +
   facet_wrap(~name) +
@@ -125,7 +123,7 @@ ggplot(data = dat_top_timeseries,
 ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
        aes(x = year, y = prop)) +
   geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1961, 2021, 5))) +
+  scale_x_continuous(breaks = c(seq(1962, 2022, 5))) +
   scale_y_continuous(labels = scales::percent,
                      breaks = c(seq(0, 0.06, 0.01))) +
   geom_point(alpha = 0.4) +

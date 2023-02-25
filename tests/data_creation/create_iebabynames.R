@@ -18,8 +18,8 @@ iebabynames_22 <- dat_22 |>
     mutate(n = as.integer(n)) |>
     group_by(sex) |>
     arrange(sex, -n) |>
-    group_by(year) |>
-    mutate(rank = 1:n()) |>
+    group_by(year, sex) |>
+    mutate(rank = base::rank(-n, ties.method = "min")) |>
     ungroup() |>
     mutate(prop = n / sum(n)) %>%
     group_by(year, sex) %>%
