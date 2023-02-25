@@ -30,7 +30,7 @@ the latest development version:
 
 ``` r
 if (!require("devtools")) {
-  install.packages("devtools")
+    install.packages("devtools")
 }
 devtools::install_github("stefan-mueller/iebabynames") 
 ```
@@ -58,9 +58,9 @@ head(iebabynames)
 
 ``` r
 dat_top_2022 <- iebabynames %>% 
-  filter(year == "2022") %>% 
-  group_by(sex) %>% 
-  top_n(n = 10, wt = -rank) # get top 10
+    filter(year == "2022") %>% 
+    group_by(sex) %>% 
+    top_n(n = 10, wt = -rank) # get top 10
 
 dat_top_2022
 ## # A tibble: 20 × 7
@@ -94,25 +94,26 @@ dat_top_2022
 ``` r
 # combine name and sex for correct subsetting
 dat_top_2022 <- dat_top_2022 %>% 
-  mutate(name_sex = paste(name, sex, sep = "_"))  
+    mutate(name_sex = paste(name, sex, sep = "_"))  
 
 # extract all years for the most frequent names in 2022
 dat_top_timeseries <- iebabynames %>% 
-  mutate(name_sex = paste(name, sex, sep = "_")) %>% 
-  filter(name_sex %in% dat_top_2022$name_sex)
+    mutate(name_sex = paste(name, sex, sep = "_")) %>% 
+    filter(name_sex %in% dat_top_2022$name_sex)
 
 ggplot(data = dat_top_timeseries,
        aes(x = year, y = prop, colour = sex)) +
-  scale_colour_manual(values = c("darkgreen", "grey50")) +
-  scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
-  scale_y_continuous(labels = scales::percent) +
-  geom_point(alpha = 0.4) +
-  facet_wrap(~name) +
-  labs(x = NULL, y = "Percentage of Babies") +
-  theme_bw() +
-  theme(legend.title = element_blank(),
-        axis.text.x = element_text(angle = 90, hjust = 0.5),
-        legend.position = "bottom")
+    scale_colour_manual(values = c("darkgreen", "grey50")) +
+    scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
+    scale_y_continuous(labels = scales::percent,
+                       breaks = c(seq(0, 0.03, 0.01))) +
+    geom_point(alpha = 0.4) +
+    facet_wrap(~name) +
+    labs(x = NULL, y = "Percentage of Babies") +
+    theme_bw() +
+    theme(legend.title = element_blank(),
+          axis.text.x = element_text(angle = 90, hjust = 0.5),
+          legend.position = "bottom")
 ```
 
 ![](man/images/unnamed-chunk-6-1.png)<!-- -->
@@ -122,14 +123,14 @@ ggplot(data = dat_top_timeseries,
 ``` r
 ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
        aes(x = year, y = prop)) +
-  geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1962, 2022, 5))) +
-  scale_y_continuous(labels = scales::percent,
-                     breaks = c(seq(0, 0.06, 0.01))) +
-  geom_point(alpha = 0.4) +
-  facet_wrap(~name) +
-  labs(x = NULL, y = "Percentage of Babies") +
-  theme_bw()
+    geom_smooth(se = FALSE) +
+    scale_x_continuous(breaks = c(seq(1962, 2022, 5))) +
+    scale_y_continuous(labels = scales::percent,
+                       breaks = c(seq(0, 0.06, 0.01))) +
+    geom_point(alpha = 0.4) +
+    facet_wrap(~name) +
+    labs(x = NULL, y = "Percentage of Babies") +
+    theme_bw()
 ```
 
 ![](man/images/unnamed-chunk-7-1.png)<!-- -->
@@ -138,25 +139,25 @@ ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
 
 ``` r
 iebabynames_top <- iebabynames %>% 
-  group_by(sex, name) %>% 
-  summarise(n_total = sum(n)) %>% 
-  top_n(n = 10, wt = n_total)
+    group_by(sex, name) %>% 
+    summarise(n_total = sum(n)) %>% 
+    top_n(n = 10, wt = n_total)
 
-ggplot(iebabynames_top, aes(x = reorder(name, n_total),
-                            y = n_total,
+ggplot(iebabynames_top, aes(x = n_total,
+                            y = reorder(name, n_total), 
                             fill = sex)) +
-  geom_bar(stat = "identity") +
-  geom_text(aes(label = name), nudge_y = -2000, 
-            hjust = "right",
-            colour = "white") +
-  scale_fill_manual(values = c("darkgreen", "grey50")) +
-  coord_flip() +
-  theme_bw() +
-  labs(x = NULL, y = "Frequency (1964-2022)") +
-  theme(axis.text.y = element_blank(),
-        axis.ticks.y = element_blank(),
-        legend.title = element_blank(),
-        legend.position = "bottom") 
+    geom_bar(stat = "identity") +
+    geom_text(aes(label = name), nudge_x = -2000, 
+              hjust = "right",
+              colour = "white") +
+    scale_x_continuous(labels = scales::comma_format()) +
+    scale_fill_manual(values = c("darkgreen", "grey50")) +
+    theme_bw() +
+    labs(x = "Frequency (1964-2022)", y = NULL) +
+    theme(axis.text.y = element_blank(),
+          axis.ticks.y = element_blank(),
+          legend.title = element_blank(),
+          legend.position = "bottom") 
 ```
 
 ![](man/images/unnamed-chunk-8-1.png)<!-- -->
@@ -165,17 +166,17 @@ ggplot(iebabynames_top, aes(x = reorder(name, n_total),
 
 ``` r
 iebabynames_variants1 <- iebabynames %>% 
-  filter(name %in% c("Aoife", "Aoibhe", "Eva",
-                     "Eve"))
+    filter(name %in% c("Aoife", "Aoibhe", "Eva",
+                       "Eve"))
 
 ggplot(data = iebabynames_variants1,
        aes(x = year, y = n)) +
-  geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1970, 2022, 20))) +
-  geom_point(alpha = 0.4) +
-  facet_wrap(~name, nrow = 1) +
-  labs(x = NULL, y = "Frequency") +
-  theme_bw()
+    geom_smooth(se = FALSE) +
+    scale_x_continuous(breaks = c(seq(1970, 2022, 20))) +
+    geom_point(alpha = 0.4) +
+    facet_wrap(~name, nrow = 1) +
+    labs(x = NULL, y = "Frequency") +
+    theme_bw()
 ```
 
 ![](man/images/unnamed-chunk-9-1.png)<!-- -->
