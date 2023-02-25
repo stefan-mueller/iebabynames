@@ -3,11 +3,11 @@
 
 ## Description
 
-Full baby name data (1964–2021) for Ireland, gathered from the [Central
+Full baby name data (1964–2022) for Ireland, gathered from the [Central
 Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
 
-The package contains the dataset `iebabynames` with 74661 observations
+The package contains the dataset `iebabynames` with 76794 observations
 on six variables: `year`, `sex`, `name`, `n`, `rank`, and `prop`, and
 `prop_sex`. Due to confidentiality reasons, only names with 3 or more
 instances in the relevant year are included.
@@ -45,68 +45,68 @@ library(ggplot2)
 library(scales)
 
 head(iebabynames)
-##   year    sex   name   n rank        prop
-## 1 2021 Female  Fiadh 424    1 0.008322211
-## 2 2021 Female  Grace 412    2 0.008086677
-## 3 2021 Female  Emily 388    3 0.007615608
-## 4 2021 Female Sophie 336    4 0.006594960
-## 5 2021 Female  Éabha 288    5 0.005652822
-## 6 2021 Female   Lucy 287    6 0.005633195
+##   year    sex   name   n rank        prop   prop_sex
+## 1 2022 Female  Emily 349    1 0.007029204 0.01469164
+## 2 2022 Female  Grace 342    2 0.006888218 0.01439697
+## 3 2022 Female  Fiadh 320    3 0.006445116 0.01347085
+## 4 2022 Female Sophie 292    4 0.005881168 0.01229215
+## 5 2022 Female   Lily 291    5 0.005861027 0.01225005
+## 6 2022 Female  Éabha 271    6 0.005458207 0.01140812
 ```
 
-### Get most popular names in 2021
+### Get most popular names in 2022
 
 ``` r
-dat_top_2021 <- iebabynames %>% 
-  filter(year == "2021") %>% 
+dat_top_2022 <- iebabynames %>% 
+  filter(year == "2022") %>% 
   group_by(sex) %>% 
   top_n(n = 10, wt = -rank) # get top 10
 
-dat_top_2021
-## # A tibble: 20 × 6
+dat_top_2022
+## # A tibble: 20 × 7
 ## # Groups:   sex [2]
-##     year sex    name        n  rank    prop
-##    <dbl> <chr>  <chr>   <int> <dbl>   <dbl>
-##  1  2021 Female Fiadh     424     1 0.00832
-##  2  2021 Female Grace     412     2 0.00809
-##  3  2021 Female Emily     388     3 0.00762
-##  4  2021 Female Sophie    336     4 0.00659
-##  5  2021 Female Éabha     288     5 0.00565
-##  6  2021 Female Lucy      287     6 0.00563
-##  7  2021 Female Mia       279     7 0.00548
-##  8  2021 Female Ava       272     8 0.00534
-##  9  2021 Female Lily      271     9 0.00532
-## 10  2021 Female Ella      268    10 0.00526
-## 11  2021 Male   Jack      667     1 0.0131 
-## 12  2021 Male   Noah      475     2 0.00932
-## 13  2021 Male   James     442     3 0.00868
-## 14  2021 Male   Conor     360     4 0.00707
-## 15  2021 Male   Rían      357     5 0.00701
-## 16  2021 Male   Liam      353     6 0.00693
-## 17  2021 Male   Charlie   345     7 0.00677
-## 18  2021 Male   Daniel    325     8 0.00638
-## 19  2021 Male   Cillian   322     9 0.00632
-## 20  2021 Male   Tadhg     318    10 0.00624
+##     year sex    name        n  rank    prop prop_sex
+##    <dbl> <chr>  <chr>   <int> <dbl>   <dbl>    <dbl>
+##  1  2022 Female Emily     349     1 0.00703   0.0147
+##  2  2022 Female Grace     342     2 0.00689   0.0144
+##  3  2022 Female Fiadh     320     3 0.00645   0.0135
+##  4  2022 Female Sophie    292     4 0.00588   0.0123
+##  5  2022 Female Lily      291     5 0.00586   0.0123
+##  6  2022 Female Éabha     271     6 0.00546   0.0114
+##  7  2022 Female Ava       269     7 0.00542   0.0113
+##  8  2022 Female Mia       262     8 0.00528   0.0110
+##  9  2022 Female Ellie     259     9 0.00522   0.0109
+## 10  2022 Female Olivia    258    10 0.00520   0.0109
+## 11  2022 Male   Jack      641  1152 0.0129    0.0248
+## 12  2022 Male   Noah      485  1153 0.00977   0.0187
+## 13  2022 Male   James     412  1154 0.00830   0.0159
+## 14  2022 Male   Rían      372  1155 0.00749   0.0144
+## 15  2022 Male   Charlie   348  1156 0.00701   0.0134
+## 16  2022 Male   Oisín     340  1157 0.00685   0.0131
+## 17  2022 Male   Tadhg     324  1158 0.00653   0.0125
+## 18  2022 Male   Liam      323  1159 0.00651   0.0125
+## 19  2022 Male   Cillian   316  1160 0.00636   0.0122
+## 20  2022 Male   Daniel    303  1161 0.00610   0.0117
 ```
 
-### Inspecting how the most popular names in 2021 have developed over time
+### Inspecting how the most popular names in 2022 have developed over time
 
 ``` r
 # combine name and sex for correct subsetting
-dat_top_2021 <- dat_top_2021 %>% 
+dat_top_2022 <- dat_top_2022 %>% 
   mutate(name_sex = paste(name, sex, sep = "_"))  
 
-# extract all years for the most frequent names in 2021
+# extract all years for the most frequent names in 2022
 dat_top_timeseries <- iebabynames %>% 
   mutate(name_sex = paste(name, sex, sep = "_")) %>% 
-  filter(name_sex %in% dat_top_2021$name_sex)
+  filter(name_sex %in% dat_top_2022$name_sex)
 
 library(ggridges)
 
 ggplot(data = dat_top_timeseries,
        aes(x = year, y = prop, colour = sex)) +
   scale_colour_manual(values = c("darkgreen", "grey50")) +
-  scale_x_continuous(breaks = c(seq(1961, 2021, 10))) +
+  scale_x_continuous(breaks = c(seq(1961, 2022, 10))) +
   scale_y_continuous(labels = scales::percent) +
   geom_point(alpha = 0.4) +
   facet_wrap(~name) +
@@ -154,7 +154,7 @@ ggplot(iebabynames_top, aes(x = reorder(name, n_total),
   scale_fill_manual(values = c("darkgreen", "grey50")) +
   coord_flip() +
   theme_bw() +
-  labs(x = NULL, y = "Frequency (1964-2021)") +
+  labs(x = NULL, y = "Frequency (1964-2022)") +
   theme(axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
         legend.title = element_blank(),
@@ -173,7 +173,7 @@ iebabynames_variants1 <- iebabynames %>%
 ggplot(data = iebabynames_variants1,
        aes(x = year, y = n)) +
   geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1970, 2021, 20))) +
+  scale_x_continuous(breaks = c(seq(1970, 2022, 20))) +
   geom_point(alpha = 0.4) +
   facet_wrap(~name, nrow = 1) +
   labs(x = NULL, y = "Frequency") +
@@ -182,24 +182,6 @@ ggplot(data = iebabynames_variants1,
 
 ![](man/images/unnamed-chunk-9-1.png)<!-- -->
 
-``` r
-iebabynames_variants2 <- iebabynames %>% 
-  filter(name %in% c("Eoin", "Eoghan", "Ewan",
-                     "Owen"))
-
-
-ggplot(data = iebabynames_variants2,
-       aes(x = year, y = n)) +
-  geom_smooth(se = FALSE) +
-  scale_x_continuous(breaks = c(seq(1970, 2021, 20))) +
-  geom_point(alpha = 0.4) +
-  facet_wrap(~name, nrow = 1) +
-  labs(x = NULL, y = "Frequency") +
-  theme_bw()
-```
-
-![](man/images/unnamed-chunk-10-1.png)<!-- -->
-
 The [website of the Central Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/)
 includes an interactive interface that allows you to plot the frequency
@@ -207,8 +189,8 @@ and rank of custom names.
 
 ## How to cite
 
-Stefan Müller (2022). *iebabynames: Ireland Baby Names, 1964-2021*. R
-package version 0.2.2. URL:
+Stefan Müller (2023). *iebabynames: Ireland Baby Names, 1964-2023*. R
+package version 0.2.3. URL:
 <http://github.com/stefan-mueller/iebabynames>.
 
 If you use the data, please also cite the CSO website:

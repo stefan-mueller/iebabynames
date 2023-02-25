@@ -1,15 +1,15 @@
 Package: iebabynames
-Title: Ireland Baby Names, 1964-2021
-Version: 0.2.2
+Title: Ireland Baby Names, 1964-2022
+Version: 0.2.3
 Authors@R: c(
     person("Müller", "Stefan", email = "stefan.mueller@ucd.ie", role = c("aut", "cre"), comment = c(ORCID = "0000-0002-6315-4125")))
 Description: Full listing of baby names in Ireland
-    occurring more than three times per year between 1964 and 2021
+    occurring more than three times per year between 1964 and 2022
 License: CC0
 URL: http://github.com/stefan-mueller/iebabynames
 BugReports: https://github.com/stefan-mueller/iebabynames/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
 Depends: 
     R (>= 2.10)
