@@ -124,7 +124,7 @@ ggplot(data = dat_top_timeseries,
 ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
        aes(x = year, y = prop)) +
     geom_smooth(se = FALSE) +
-    scale_x_continuous(breaks = c(seq(1962, 2022, 5))) +
+    scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
     scale_y_continuous(labels = scales::percent,
                        breaks = c(seq(0, 0.06, 0.01))) +
     geom_point(alpha = 0.4) +
@@ -165,11 +165,11 @@ ggplot(iebabynames_top, aes(x = n_total,
 ### Exploring different variants of names
 
 ``` r
-iebabynames_variants1 <- iebabynames %>% 
+iebabynames_variants <- iebabynames %>% 
     filter(name %in% c("Aoife", "Aoibhe", "Eva",
                        "Eve"))
 
-ggplot(data = iebabynames_variants1,
+ggplot(data = iebabynames_variants,
        aes(x = year, y = n)) +
     geom_smooth(se = FALSE) +
     scale_x_continuous(breaks = c(seq(1970, 2022, 20))) +

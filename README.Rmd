@@ -65,7 +65,7 @@ dat_top_2022
 
 ### Inspecting how the most popular names in 2022 have developed over time
 
-```{r}
+```{r, fig.width=6, fig.height=4}
 # combine name and sex for correct subsetting
 dat_top_2022 <- dat_top_2022 %>% 
     mutate(name_sex = paste(name, sex, sep = "_"))  
@@ -93,11 +93,11 @@ ggplot(data = dat_top_timeseries,
 
 ### Inspecting the development of selected names
 
-```{r,message=FALSE, fig.width=8, fig.height=4}
+```{r,message=FALSE, fig.width=6.5, fig.height=3}
 ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
        aes(x = year, y = prop)) +
     geom_smooth(se = FALSE) +
-    scale_x_continuous(breaks = c(seq(1962, 2022, 5))) +
+    scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
     scale_y_continuous(labels = scales::percent,
                        breaks = c(seq(0, 0.06, 0.01))) +
     geom_point(alpha = 0.4) +
@@ -108,7 +108,7 @@ ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
 
 ### Plotting the 10 most frequent male and female names across the entire period
 
-```{r,message=FALSE, fig.width=8, fig.height=6}
+```{r,message=FALSE, fig.width=6, fig.height=6}
 iebabynames_top <- iebabynames %>% 
     group_by(sex, name) %>% 
     summarise(n_total = sum(n)) %>% 
@@ -133,12 +133,12 @@ ggplot(iebabynames_top, aes(x = n_total,
 
 ### Exploring different variants of names
 
-```{r,message=FALSE, fig.width=8, fig.height=3}
-iebabynames_variants1 <- iebabynames %>% 
+```{r,message=FALSE, fig.width=6, fig.height=3}
+iebabynames_variants <- iebabynames %>% 
     filter(name %in% c("Aoife", "Aoibhe", "Eva",
                        "Eve"))
 
-ggplot(data = iebabynames_variants1,
+ggplot(data = iebabynames_variants,
        aes(x = year, y = n)) +
     geom_smooth(se = FALSE) +
     scale_x_continuous(breaks = c(seq(1970, 2022, 20))) +
