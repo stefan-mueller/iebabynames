@@ -3,11 +3,11 @@
 
 ## Description
 
-Full baby name data (1964–2022) for Ireland, gathered from the [Central
+Full baby name data (1964–2023) for Ireland, gathered from the [Central
 Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
 
-The package contains the dataset `iebabynames` with 76794 observations
+The package contains the dataset `iebabynames` with 78,897 observations
 on six variables: `year`, `sex`, `name`, `n`, `rank`, and `prop`, and
 `prop_sex`. Due to confidentiality reasons, only names with 3 or more
 instances in the relevant year are included.
@@ -29,10 +29,10 @@ The package is hosted on GitHub and not available at CRAN. To install
 the latest development version:
 
 ``` r
-if (!require("devtools")) {
-    install.packages("devtools")
+if (!require("remotes")) {
+    install.packages("remotes")
 }
-devtools::install_github("stefan-mueller/iebabynames") 
+remotes::install_github("stefan-mueller/iebabynames") 
 ```
 
 ## Demonstration
@@ -44,96 +44,53 @@ library(dplyr)
 library(ggplot2)
 library(scales)
 
+# set ggplot2 theme
+theme_set(theme_bw())
+
 head(iebabynames)
 ##   year    sex   name   n rank        prop   prop_sex
-## 1 2022 Female  Emily 349    1 0.007029204 0.01469164
-## 2 2022 Female  Grace 342    2 0.006888218 0.01439697
-## 3 2022 Female  Fiadh 320    3 0.006445116 0.01347085
-## 4 2022 Female Sophie 292    4 0.005881168 0.01229215
-## 5 2022 Female   Lily 291    5 0.005861027 0.01225005
-## 6 2022 Female  Éabha 271    6 0.005458207 0.01140812
+## 1 2023 Female  Grace 339    1 0.007325137 0.01533728
+## 2 2023 Female  Fiadh 300    2 0.006482422 0.01357282
+## 3 2023 Female  Emily 297    3 0.006417598 0.01343709
+## 4 2023 Female Sophie 283    4 0.006115085 0.01280369
+## 5 2023 Female   Lily 270    5 0.005834180 0.01221554
+## 6 2023 Female  Ellie 252    6 0.005445234 0.01140117
 ```
 
-### Get most popular names in 2022
+### Get most popular names in 2023
 
 ``` r
-dat_top_2022 <- iebabynames %>% 
-    filter(year == "2022") %>% 
+dat_top_2023 <- iebabynames %>% 
+    filter(year == "2023") %>% 
     group_by(sex) %>% 
     top_n(n = 10, wt = -rank) # get top 10
 
-dat_top_2022
+dat_top_2023
 ## # A tibble: 20 × 7
 ## # Groups:   sex [2]
 ##     year sex    name        n  rank    prop prop_sex
 ##    <dbl> <chr>  <chr>   <int> <dbl>   <dbl>    <dbl>
-##  1  2022 Female Emily     349     1 0.00703   0.0147
-##  2  2022 Female Grace     342     2 0.00689   0.0144
-##  3  2022 Female Fiadh     320     3 0.00645   0.0135
-##  4  2022 Female Sophie    292     4 0.00588   0.0123
-##  5  2022 Female Lily      291     5 0.00586   0.0123
-##  6  2022 Female Éabha     271     6 0.00546   0.0114
-##  7  2022 Female Ava       269     7 0.00542   0.0113
-##  8  2022 Female Mia       262     8 0.00528   0.0110
-##  9  2022 Female Ellie     259     9 0.00522   0.0109
-## 10  2022 Female Olivia    258    10 0.00520   0.0109
-## 11  2022 Male   Jack      641     1 0.0129    0.0248
-## 12  2022 Male   Noah      485     2 0.00977   0.0187
-## 13  2022 Male   James     412     3 0.00830   0.0159
-## 14  2022 Male   Rían      372     4 0.00749   0.0144
-## 15  2022 Male   Charlie   348     5 0.00701   0.0134
-## 16  2022 Male   Oisín     340     6 0.00685   0.0131
-## 17  2022 Male   Tadhg     324     7 0.00653   0.0125
-## 18  2022 Male   Liam      323     8 0.00651   0.0125
-## 19  2022 Male   Cillian   316     9 0.00636   0.0122
-## 20  2022 Male   Daniel    303    10 0.00610   0.0117
+##  1  2023 Female Grace     339     1 0.00733   0.0153
+##  2  2023 Female Fiadh     300     2 0.00648   0.0136
+##  3  2023 Female Emily     297     3 0.00642   0.0134
+##  4  2023 Female Sophie    283     4 0.00612   0.0128
+##  5  2023 Female Lily      270     5 0.00583   0.0122
+##  6  2023 Female Ellie     252     6 0.00545   0.0114
+##  7  2023 Female Mia       242     7 0.00523   0.0109
+##  8  2023 Female Amelia    241     8 0.00521   0.0109
+##  9  2023 Female Éabha     241     8 0.00521   0.0109
+## 10  2023 Female Ella      231    10 0.00499   0.0105
+## 11  2023 Male   Jack      561     1 0.0121    0.0232
+## 12  2023 Male   Noah      473     2 0.0102    0.0196
+## 13  2023 Male   James     369     3 0.00797   0.0153
+## 14  2023 Male   Rían      339     4 0.00733   0.0140
+## 15  2023 Male   Oisín     330     5 0.00713   0.0136
+## 16  2023 Male   Fionn     306     6 0.00661   0.0127
+## 17  2023 Male   Tadhg     301     7 0.00650   0.0125
+## 18  2023 Male   Liam      289     8 0.00624   0.0120
+## 19  2023 Male   Cillian   275     9 0.00594   0.0114
+## 20  2023 Male   Daniel    256    10 0.00553   0.0106
 ```
-
-### Inspecting how the most popular names in 2022 have developed over time
-
-``` r
-# combine name and sex for correct subsetting
-dat_top_2022 <- dat_top_2022 %>% 
-    mutate(name_sex = paste(name, sex, sep = "_"))  
-
-# extract all years for the most frequent names in 2022
-dat_top_timeseries <- iebabynames %>% 
-    mutate(name_sex = paste(name, sex, sep = "_")) %>% 
-    filter(name_sex %in% dat_top_2022$name_sex)
-
-ggplot(data = dat_top_timeseries,
-       aes(x = year, y = prop, colour = sex)) +
-    scale_colour_manual(values = c("darkgreen", "grey50")) +
-    scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
-    scale_y_continuous(labels = scales::percent,
-                       breaks = c(seq(0, 0.03, 0.01))) +
-    geom_point(alpha = 0.4) +
-    facet_wrap(~name) +
-    labs(x = NULL, y = "Percentage of Babies") +
-    theme_bw() +
-    theme(legend.title = element_blank(),
-          axis.text.x = element_text(angle = 90, hjust = 0.5),
-          legend.position = "bottom")
-```
-
-![](man/images/unnamed-chunk-6-1.png)<!-- -->
-
-### Inspecting the development of selected names
-
-``` r
-ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
-       aes(x = year, y = prop)) +
-    geom_smooth(se = FALSE) +
-    scale_x_continuous(breaks = c(seq(1962, 2022, 10))) +
-    scale_y_continuous(labels = scales::percent,
-                       breaks = c(seq(0, 0.06, 0.01))) +
-    geom_point(alpha = 0.4) +
-    facet_wrap(~name) +
-    labs(x = NULL, y = "Percentage of Babies") +
-    theme_bw()
-```
-
-![](man/images/unnamed-chunk-7-1.png)<!-- -->
 
 ### Plotting the 10 most frequent male and female names across the entire period
 
@@ -151,18 +108,35 @@ ggplot(iebabynames_top, aes(x = n_total,
               hjust = "right",
               colour = "white") +
     scale_x_continuous(labels = scales::comma_format()) +
-    scale_fill_manual(values = c("darkgreen", "grey50")) +
-    theme_bw() +
-    labs(x = "Frequency (1964-2022)", y = NULL) +
+    scale_fill_manual(values = c("#83D0F5", "#71B294")) +
+    labs(title = "Frequency of Babynames in Ireland (1964--2023)", 
+         x = "Number of Babies",
+         y = NULL) +
     theme(axis.text.y = element_blank(),
           axis.ticks.y = element_blank(),
           legend.title = element_blank(),
           legend.position = "bottom") 
 ```
 
-![](man/images/unnamed-chunk-8-1.png)<!-- -->
+![](man/images/unnamed-chunk-6-1.png)<!-- -->
 
-### Exploring different variants of names
+### Inspecting the development of selected names
+
+``` r
+ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
+       aes(x = year, y = prop)) +
+    geom_smooth(se = FALSE) +
+    scale_x_continuous(breaks = c(seq(1963, 2023, 10))) +
+    scale_y_continuous(labels = scales::percent,
+                       breaks = c(seq(0, 0.06, 0.01))) +
+    geom_point(alpha = 0.4) +
+    facet_wrap(~name) +
+    labs(x = NULL, y = "Percentage of Babies") 
+```
+
+![](man/images/unnamed-chunk-7-1.png)<!-- -->
+
+### Explore different variants of names
 
 ``` r
 iebabynames_variants <- iebabynames %>% 
@@ -172,14 +146,14 @@ iebabynames_variants <- iebabynames %>%
 ggplot(data = iebabynames_variants,
        aes(x = year, y = n)) +
     geom_smooth(se = FALSE) +
-    scale_x_continuous(breaks = c(seq(1970, 2022, 20))) +
+    scale_x_continuous(breaks = c(seq(1963, 2023, 20))) +
     geom_point(alpha = 0.4) +
     facet_wrap(~name, nrow = 1) +
     labs(x = NULL, y = "Frequency") +
-    theme_bw()
+    theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 ```
 
-![](man/images/unnamed-chunk-9-1.png)<!-- -->
+![](man/images/unnamed-chunk-8-1.png)<!-- -->
 
 The [website of the Central Statistics
 Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/)
@@ -188,8 +162,8 @@ and rank of custom names.
 
 ## How to cite
 
-Stefan Müller (2023). *iebabynames: Ireland Baby Names, 1964-2023*. R
-package version 0.2.3. URL:
+Stefan Müller (2024). *iebabynames: Ireland Baby Names, 1964–2023*. R
+package version 0.2.4. URL:
 <http://github.com/stefan-mueller/iebabynames>.
 
 If you use the data, please also cite the CSO website:

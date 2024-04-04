@@ -5,8 +5,8 @@
 \alias{iebabynames}
 \title{Irish baby names}
 \format{
-A data frame with 76,794 observations on seven variables: \code{year}, \code{sex}, \code{name}, \code{n}, \code{rank}, \code{prop}, \code{prop_sex}. \describe{
-    \item{year}{A year (1964--2022)}
+A data frame with 78,897 observations on seven variables: \code{year}, \code{sex}, \code{name}, \code{n}, \code{rank}, \code{prop}, \code{prop_sex}. \describe{
+    \item{year}{A year (1964--2023)}
     \item{sex}{Sex (Male or Female)}
     \item{name}{A name}
     \item{n}{Count of name within year and sex}
@@ -16,13 +16,13 @@ A data frame with 76,794 observations on seven variables: \code{year}, \code{sex
   }
 }
 \source{
-Central Statistics Office. 2023 \href{https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/}{Baby Names of Ireland}.
+Central Statistics Office. 2024 \href{https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/}{Baby Names of Ireland}.
 }
 \usage{
 iebabynames
 }
 \description{
-Full baby name data (1964--2022) for Ireland, provided by the Central Statistics Office.
+Full baby name data (1964--2023) for Ireland, provided by the Central Statistics Office.
    Due to confidentiality reasons, only names with 3 or more instances in the relevant year are included.
 }
 \details{
