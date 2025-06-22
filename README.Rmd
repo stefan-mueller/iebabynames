@@ -20,7 +20,7 @@ library(iebabynames)
 
 ## Description
 
-Full baby name data (1964--2023) for Ireland, gathered from the [Central Statistics Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
+Full baby name data (1964--2024) for Ireland, gathered from the [Central Statistics Office](https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/).
 
 The package contains the dataset `iebabynames` with `r  format(nrow(iebabynames), big.mark = ",")` observations on six variables: `year`, `sex`, `name`, `n`, `rank`, and `prop`, and `prop_sex`. Due to confidentiality reasons, only names with 3 or more instances in the relevant year are included.
 
@@ -55,25 +55,24 @@ theme_set(theme_bw())
 head(iebabynames)
 ```
 
-### Get most popular names in 2023
+### Get most popular names in 2024
 
 ```{r}
-dat_top_2023 <- iebabynames %>% 
-    filter(year == "2023") %>% 
-    group_by(sex) %>% 
+dat_top_2024 <- iebabynames |> 
+    filter(year == "2024") |> 
+    group_by(sex) |> 
     top_n(n = 10, wt = -rank) # get top 10
 
-dat_top_2023
+dat_top_2024
 ```
 
 
-
-### Plotting the 10 most frequent male and female names across the entire period
+### Visualising the 10 most frequent male and female names across the entire period
 
 ```{r,message=FALSE, fig.width=6, fig.height=6}
-iebabynames_top <- iebabynames %>% 
-    group_by(sex, name) %>% 
-    summarise(n_total = sum(n)) %>% 
+iebabynames_top <- iebabynames |> 
+    group_by(sex, name) |> 
+    summarise(n_total = sum(n)) |> 
     top_n(n = 10, wt = n_total)
 
 ggplot(iebabynames_top, aes(x = n_total,
@@ -85,7 +84,7 @@ ggplot(iebabynames_top, aes(x = n_total,
               colour = "white") +
     scale_x_continuous(labels = scales::comma_format()) +
     scale_fill_manual(values = c("#83D0F5", "#71B294")) +
-    labs(title = "Frequency of Baby Names in Ireland (1964–2023)", 
+    labs(title = "Frequency of Baby Names in Ireland (1964–2024)", 
          x = "Number of Babies",
          y = NULL) +
     theme(axis.text.y = element_blank(),
@@ -101,7 +100,7 @@ ggplot(iebabynames_top, aes(x = n_total,
 ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
        aes(x = year, y = prop)) +
     geom_smooth(se = FALSE) +
-    scale_x_continuous(breaks = c(seq(1963, 2023, 10))) +
+    scale_x_continuous(breaks = c(seq(1963, 2024, 10))) +
     scale_y_continuous(labels = scales::percent,
                        breaks = c(seq(0, 0.06, 0.01))) +
     geom_point(alpha = 0.4) +
@@ -113,14 +112,13 @@ ggplot(data = filter(iebabynames, name %in% c("John", "Mary")),
 ### Explore different variants of names
 
 ```{r,message=FALSE, fig.width=6, fig.height=3}
-iebabynames_variants <- iebabynames %>% 
-    filter(name %in% c("Aoife", "Aoibhe", "Eva",
-                       "Eve"))
+iebabynames_variants <- iebabynames |> 
+    filter(name %in% c("Aoibhe", "Eva", "Eve"))
 
 ggplot(data = iebabynames_variants,
        aes(x = year, y = n)) +
     geom_smooth(se = FALSE) +
-    scale_x_continuous(breaks = c(seq(1963, 2023, 20))) +
+    scale_x_continuous(breaks = c(seq(1963, 2024, 20))) +
     geom_point(alpha = 0.4) +
     facet_wrap(~name, nrow = 1) +
     labs(x = NULL, y = "Frequency") +
@@ -132,7 +130,7 @@ The [website of the Central Statistics Office](https://www.cso.ie/en/interactive
 
 ## How to cite
 
-Stefan Müller (2024). _iebabynames: Ireland Baby Names, 1964--2023_. R package version 0.2.4. URL: http://github.com/stefan-mueller/iebabynames.
+Stefan Müller (2025). _iebabynames: Ireland Baby Names, 1964--2024_. R package version 0.2.5. URL: http://github.com/stefan-mueller/iebabynames.
 
 If you use the data, please also cite the CSO website: https://www.cso.ie/en/interactivezone/visualisationtools/babynamesofireland/.
 
